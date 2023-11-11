@@ -96,6 +96,8 @@ where
         self.cs.set_low().map_err(Error::Pin)?;
         let result = f(&mut self.spi);
         self.cs.set_high().map_err(Error::Pin)?;
+        // Workaround for https://github.com/newAM/w5500-rs/issues/280
+        self.cs.set_high().map_err(Error::Pin)?;
         result
     }
 }
